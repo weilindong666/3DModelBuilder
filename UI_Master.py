@@ -6,7 +6,6 @@
 @File    : UI_Master.py
 @Software: PyCharm
 '''
-from PySide2.QtCore import Signal
 from ui.MainUI import MainUI
 
 

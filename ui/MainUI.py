@@ -7,7 +7,7 @@
 @Software: PyCharm
 '''
 from ui.ui.ui_MainUI import Ui_MainWindow
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QMainWindow
 from MySignals import MySignals
 
 class MainUI(QMainWindow, Ui_MainWindow):

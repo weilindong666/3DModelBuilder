@@ -17,11 +17,10 @@ class MainService:
         self.MySignals = MySignals()
         self.initUI()
         self.initSignal()
-        self.app.exec_()
+        self.app.aboutToQuit.connect(self.finished)
         pass
 
     def initUI(self):
-
         self.UI_Master.MainUI.show()
 
     def initSignal(self):
@@ -30,8 +29,11 @@ class MainService:
     def firstSiganl(self, num):
         print(num)
         # self.app.exec_()
+    def finished(self):
+        print('888')
+        self.UI_Master.MainUI.close()
 
 
 if __name__ == '__main__':
-    MainService()
-
+    app = MainService()
+    app.app.exec_()
