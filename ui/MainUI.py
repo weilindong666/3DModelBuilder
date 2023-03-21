@@ -22,5 +22,5 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.MySignals.my_first_signal.emit(5)
 
     def import_dataset(self):
-        item = ListWidgetItem(['./texture/none.png'], self.listWidget_1)
+        item = ListWidgetItem(['./texture/none.png'])
         self.listWidget_1.addItem(item)
