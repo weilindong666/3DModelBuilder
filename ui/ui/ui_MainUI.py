@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIGGmBNk.ui'
+## Form generated from reading UI file 'MainUIGqAiJk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1360, 898)
+        MainWindow.setMinimumSize(QSize(800, 600))
         self.action_import_dataset = QAction(MainWindow)
         self.action_import_dataset.setObjectName(u"action_import_dataset")
         self.action_import_ROI = QAction(MainWindow)

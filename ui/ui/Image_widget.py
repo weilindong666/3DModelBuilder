@@ -9,7 +9,7 @@
 import cv2
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-import matplotlib.image as img
+# import matplotlib.image as img
 
 class ImageWidget(FigureCanvas):
     def __init__(self, parent=None):
@@ -30,7 +30,7 @@ class ImageWidget(FigureCanvas):
     def updateA(self, address, aspect='auto', if_RGB=False):
         self.now_graph = address
         self.axes.clear()
-        image = img.imread(address)
+        image = cv2.imread(address)
         if if_RGB:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         self.axes.imshow(image, extent=(0, 1000, 0, 1000), aspect=aspect)

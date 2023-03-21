@@ -9,15 +9,14 @@
 from PySide2.QtWidgets import QListWidgetItem
 from ui.ui.Image_widget import ImageWidget
 from ui.ImageViewerUI import ImageViewerUI
-from threading import Thread
-import time
+import cv2
 
 
 class ListWidgetItem(QListWidgetItem):
-    def __init__(self, address, list_widget):
+    def __init__(self, address, aspect_ratio):
         super(ListWidgetItem, self).__init__()
         self.image_widget = None
-        self.list_widget = list_widget
+        self.aspect_ratio = aspect_ratio
         if len(address) >= 2:
             self.addItems(address)
         else:
@@ -27,11 +26,7 @@ class ListWidgetItem(QListWidgetItem):
     def addItem(self, address):
         self.image_widget = ImageWidget()
         self.image_widget.updateA(address[0])
-        self.list_widget.addItem(self)
-        self.list_widget.setItemWidget(self, self.image_widget)
 
     def addItems(self, addresses):
         self.image_widget = ImageViewerUI(addresses)
         self.image_widget.widget.updateA(addresses[0])
-        self.list_widget.addItem(self)
-        self.list_widget.setItemWidget(self, self.image_widget)
