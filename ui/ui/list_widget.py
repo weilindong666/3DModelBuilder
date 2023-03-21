@@ -11,9 +11,10 @@ from ui.ui.Image_widget import ImageWidget
 from ui.ImageViewerUI import ImageViewerUI
 
 class ListWidgetItem(QListWidgetItem):
-    def __init__(self, address):
+    def __init__(self, address, list_widget):
         super(ListWidgetItem, self).__init__()
         self.image_widget = None
+        self.list_widget = list_widget
         if len(address) >= 2:
             self.addItems(address)
         else:
