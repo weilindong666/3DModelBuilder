@@ -14,9 +14,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,8">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,8">
     <item>
      <widget class="QListWidget" name="listWidget_1"/>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="openGL_Widget" name="widget" native="true"/>

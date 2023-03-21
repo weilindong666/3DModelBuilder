@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIqrrKXJ.ui'
+## Form generated from reading UI file 'MainUIGGmBNk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -32,19 +32,27 @@ class Ui_MainWindow(object):
         self.action_export_model.setObjectName(u"action_export_model")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.listWidget_1 = QListWidget(self.centralwidget)
         self.listWidget_1.setObjectName(u"listWidget_1")
 
-        self.horizontalLayout_2.addWidget(self.listWidget_1)
+        self.horizontalLayout.addWidget(self.listWidget_1)
+
+        self.line = QFrame(self.centralwidget)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.VLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.horizontalLayout.addWidget(self.line)
 
         self.widget = openGL_Widget(self.centralwidget)
         self.widget.setObjectName(u"widget")
 
-        self.horizontalLayout_2.addWidget(self.widget)
+        self.horizontalLayout.addWidget(self.widget)
 
-        self.horizontalLayout_2.setStretch(1, 8)
+        self.horizontalLayout.setStretch(0, 2)
+        self.horizontalLayout.setStretch(2, 8)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
