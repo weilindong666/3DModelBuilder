@@ -23,4 +23,4 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
     def import_dataset(self):
         item = ListWidgetItem(['./texture/none.png'], self.listWidget_1)
-        self.listWidget_1.addItem(item)
+        # self.listWidget_1.addItem(item)

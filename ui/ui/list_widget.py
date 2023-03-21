@@ -25,11 +25,11 @@ class ListWidgetItem(QListWidgetItem):
         # self.image_widget.updateA(address)
         self.image_widget = ImageWidget()
         self.image_widget.updateA(address[0])
-        self.listWidget().addItem(self)
-        self.listWidget().setItemWidget(self, self.image_widget)
+        self.list_widget.addItem(self)
+        self.list_widget.setItemWidget(self, self.image_widget)
 
     def addItems(self, addresses):
         self.image_widget = ImageViewerUI()
         self.image_widget.updateA(addresses[0])
-        self.listWidget().addItem(self)
-        self.listWidget().setItemWidget(self, self.image_widget)
+        self.list_widget.addItem(self)
+        self.list_widget.setItemWidget(self, self.image_widget)
