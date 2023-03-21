@@ -30,7 +30,6 @@ class MainService:
         print(num)
         # self.app.exec_()
     def finished(self):
-        print('888')
         self.UI_Master.MainUI.close()
 
 

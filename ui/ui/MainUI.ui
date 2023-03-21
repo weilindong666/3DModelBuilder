@@ -6,59 +6,110 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1054</width>
-    <height>631</height>
+    <width>1360</width>
+    <height>898</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>340</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="openGL_Widget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>20</y>
-      <width>701</width>
-      <height>491</height>
-     </rect>
-    </property>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,8">
+    <item>
+     <widget class="QListWidget" name="listWidget_1"/>
+    </item>
+    <item>
+     <widget class="openGL_Widget" name="widget" native="true"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1054</width>
+     <width>1360</width>
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>开始</string>
+    </property>
+    <widget class="QMenu" name="menu_2">
+     <property name="title">
+      <string>导入</string>
+     </property>
+     <addaction name="action_import_dataset"/>
+     <addaction name="action_import_ROI"/>
+     <addaction name="action_import_model"/>
+    </widget>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>导出</string>
+     </property>
+     <addaction name="action_export_ROI"/>
+     <addaction name="action_export_model"/>
+    </widget>
+    <addaction name="menu_2"/>
+    <addaction name="menu_3"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_import_dataset"/>
+   <addaction name="action_import_ROI"/>
+  </widget>
+  <action name="action_import_dataset">
+   <property name="text">
+    <string>数据集</string>
+   </property>
+   <property name="toolTip">
+    <string>导入数据集</string>
+   </property>
+  </action>
+  <action name="action_import_ROI">
+   <property name="text">
+    <string>ROI</string>
+   </property>
+   <property name="toolTip">
+    <string>导入ROI</string>
+   </property>
+  </action>
+  <action name="action_import_model">
+   <property name="text">
+    <string>模型</string>
+   </property>
+   <property name="toolTip">
+    <string>导入模型</string>
+   </property>
+  </action>
+  <action name="action_export_ROI">
+   <property name="text">
+    <string>ROI</string>
+   </property>
+   <property name="toolTip">
+    <string>导出ROI</string>
+   </property>
+  </action>
+  <action name="action_export_model">
+   <property name="text">
+    <string>模型</string>
+   </property>
+   <property name="toolTip">
+    <string>导出模型</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

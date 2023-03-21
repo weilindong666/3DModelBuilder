@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIxTshqH.ui'
+## Form generated from reading UI file 'MainUIqrrKXJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -19,26 +19,60 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1054, 631)
+        MainWindow.resize(1360, 898)
+        self.action_import_dataset = QAction(MainWindow)
+        self.action_import_dataset.setObjectName(u"action_import_dataset")
+        self.action_import_ROI = QAction(MainWindow)
+        self.action_import_ROI.setObjectName(u"action_import_ROI")
+        self.action_import_model = QAction(MainWindow)
+        self.action_import_model.setObjectName(u"action_import_model")
+        self.action_export_ROI = QAction(MainWindow)
+        self.action_export_ROI.setObjectName(u"action_export_ROI")
+        self.action_export_model = QAction(MainWindow)
+        self.action_export_model.setObjectName(u"action_export_model")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(110, 340, 75, 23))
-        self.textBrowser = QTextBrowser(self.centralwidget)
-        self.textBrowser.setObjectName(u"textBrowser")
-        self.textBrowser.setGeometry(QRect(10, 100, 256, 192))
+        self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.listWidget_1 = QListWidget(self.centralwidget)
+        self.listWidget_1.setObjectName(u"listWidget_1")
+
+        self.horizontalLayout_2.addWidget(self.listWidget_1)
+
         self.widget = openGL_Widget(self.centralwidget)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(310, 20, 701, 491))
+
+        self.horizontalLayout_2.addWidget(self.widget)
+
+        self.horizontalLayout_2.setStretch(1, 8)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1054, 23))
+        self.menubar.setGeometry(QRect(0, 0, 1360, 23))
+        self.menu = QMenu(self.menubar)
+        self.menu.setObjectName(u"menu")
+        self.menu_2 = QMenu(self.menu)
+        self.menu_2.setObjectName(u"menu_2")
+        self.menu_3 = QMenu(self.menu)
+        self.menu_3.setObjectName(u"menu_3")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.toolBar = QToolBar(MainWindow)
+        self.toolBar.setObjectName(u"toolBar")
+        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+
+        self.menubar.addAction(self.menu.menuAction())
+        self.menu.addAction(self.menu_2.menuAction())
+        self.menu.addAction(self.menu_3.menuAction())
+        self.menu_2.addAction(self.action_import_dataset)
+        self.menu_2.addAction(self.action_import_ROI)
+        self.menu_2.addAction(self.action_import_model)
+        self.menu_3.addAction(self.action_export_ROI)
+        self.menu_3.addAction(self.action_export_model)
+        self.toolBar.addAction(self.action_import_dataset)
+        self.toolBar.addAction(self.action_import_ROI)
 
         self.retranslateUi(MainWindow)
 
@@ -47,6 +81,29 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.action_import_dataset.setText(QCoreApplication.translate("MainWindow", u"\u6570\u636e\u96c6", None))
+#if QT_CONFIG(tooltip)
+        self.action_import_dataset.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u6570\u636e\u96c6", None))
+#endif // QT_CONFIG(tooltip)
+        self.action_import_ROI.setText(QCoreApplication.translate("MainWindow", u"ROI", None))
+#if QT_CONFIG(tooltip)
+        self.action_import_ROI.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165ROI", None))
+#endif // QT_CONFIG(tooltip)
+        self.action_import_model.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u578b", None))
+#if QT_CONFIG(tooltip)
+        self.action_import_model.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u6a21\u578b", None))
+#endif // QT_CONFIG(tooltip)
+        self.action_export_ROI.setText(QCoreApplication.translate("MainWindow", u"ROI", None))
+#if QT_CONFIG(tooltip)
+        self.action_export_ROI.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u51faROI", None))
+#endif // QT_CONFIG(tooltip)
+        self.action_export_model.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u578b", None))
+#if QT_CONFIG(tooltip)
+        self.action_export_model.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa\u6a21\u578b", None))
+#endif // QT_CONFIG(tooltip)
+        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb", None))
+        self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165", None))
+        self.menu_3.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa", None))
+        self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi
 
