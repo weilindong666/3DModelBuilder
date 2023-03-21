@@ -7,7 +7,7 @@
 @Software: PyCharm
 '''
 from ui.ui.ui_MainUI import Ui_MainWindow
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow, QSplitter
 from PySide2.QtCore import QSize
 from MySignals import MySignals
 from ui.ui.list_widget import ListWidgetItem
@@ -30,3 +30,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
         item = ListWidgetItem(['./texture/1.png', './texture/none.png'], self.listWidget_1)
         item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio*self.listWidget_1.width()))
         # self.listWidget_1.addItem(item)
+
+    def initsplitter(self):
+        splitter = QSplitter(self.line)
+        splitter.addWidget(self.listWidget_1)
+        splitter.addWidget(self.widget)
