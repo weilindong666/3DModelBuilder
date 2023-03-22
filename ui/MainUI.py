@@ -7,15 +7,17 @@
 @Software: PyCharm
 '''
 from ui.ui.ui_MainUI import Ui_MainWindow
-from PySide2.QtWidgets import QMainWindow, QSplitter
+from PySide2.QtWidgets import QMainWindow, QFileDialog
 from PySide2.QtCore import QSize, Qt, QPoint
 from MySignals import MySignals
+from UIC import UIC
+from lib.Tools import Tools
 from ui.ui.list_widget import ListWidgetItem
 import cv2
 from threading import Thread
 
 
-class MainUI(QMainWindow, Ui_MainWindow):
+class MainUI(QMainWindow, Ui_MainWindow, UIC):
     def __init__(self):
         super(MainUI, self).__init__()
         self.setupUi(self)
@@ -28,20 +30,42 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.line.mouseMoveEvent = self.mouseMoveEvent_line
         self.line.mouseReleaseEvent = self.mouseReleaseEvent_line
         self.listWidget_1.resizeEvent = self.resizeEvent_listwidget
-
-        self.action_import_dataset.triggered.connect(self.import_dataset)
+        # 导入文件
+        self.tools = Tools()
+        self.action_import_single_file.triggered.connect(self.importSingleFile)
+        self.action_import_folder.triggered.connect(self.importFolder)
 
     # def printnum(self):
     #     self.MySignals.my_first_signal.emit(5)
 
-    def import_dataset(self):
-        image = cv2.imread('./texture/1.png')
-        height, width, channels = image.shape
-        aspect_ratio = height/width
-        item = ListWidgetItem(['./texture/1.png', './texture/none.png'], aspect_ratio)
+    def importSingleFile(self):
+        filepath, _ = QFileDialog.getOpenFileName(self, '选择单个文件', self.nowpath, '(*.nii.gz *.dcm)')
+        images = []
+        if filepath:
+            if filepath.endswith('nii.gz'):
+                images = self.tools.niigzToPng(filepath, self.nowpath + '/temp', self)
+            elif filepath.endswith('dcm'):
+                images = self.tools.dcmToPng(filepath, self.nowpath + '/temp', self)
+        else:
+            return
+        self.createListWidgetItem(images)
+
+    def importFolder(self):
+        '''还没写完, 还可以再改一改图像的显示'''
+        filePath = QFileDialog.getExistingDirectory(self, "选择文件夹")
+        if filePath:
+            # 查找所有的dcm文件或者nii.gz文件
+            # 把文件中的图像提取出来
+            pass
+        # 创建listwidget item
+
+    def createListWidgetItem(self, images):
+        aspect_ratio = self.tools.getAspectRatio(images[0])
+        item = ListWidgetItem(images, aspect_ratio)
         self.listWidget_1.addItem(item)
         self.listWidget_1.setItemWidget(item, item.image_widget)
-        item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio*self.listWidget_1.width()))
+        item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio * self.listWidget_1.width()))
+
 
     def mousePressEvent_line(self, event):
         if event.button() == Qt.LeftButton:

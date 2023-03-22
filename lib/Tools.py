@@ -18,10 +18,17 @@ class Tools:
     def __init__(self):
         pass
 
-    def dcmToPng(self, address, save_path):
-        data = pydicom.read_file(address)
-        image = self.normaliza(data.pixel_array)
-        cv2.imwrite(save_path, image * 255)
+    def dcmToPng(self, filePath, targetPath, father=None):
+        data = pydicom.read_file(filePath)
+        if not os.path.exists(targetPath):
+            os.makedirs(targetPath)
+        targetPath = targetPath + '/' + os.path.basename(filePath).split()[0] + '.png'
+        try:
+            image = self.normaliza(data.pixel_array)
+        except Exception:
+            father.worning(father, '文件中没有图像信息！')
+        cv2.imwrite(targetPath, image * 255)
+        return [targetPath]
 
     def deleteTemp(self, path_file):
         ls = os.listdir(path_file)
@@ -33,8 +40,11 @@ class Tools:
             else:
                 os.remove(f_path)
 
-    def niigzToPng(self, filePath, targetPath):
+    def niigzToPng(self, filePath, targetPath, father=None):
         self.images = []
+        targetPath = targetPath + '/' + os.path.basename(filePath)
+        if not os.path.exists(targetPath):
+            os.makedirs(targetPath)
         image_arr = nib.load(filePath).get_fdata()
         with ThreadPoolExecutor(max_workers=5) as pool:
             for index in range(image_arr.shape[2]):
@@ -56,3 +66,8 @@ class Tools:
         '''
         np.seterr(divide='ignore', invalid='ignore')
         return (x - np.min(x)) / (np.max(x) - np.min(x))
+
+    def getAspectRatio(self, image_path):
+        image = cv2.imread(image_path)
+        height, width, channels = image.shape
+        return height / width

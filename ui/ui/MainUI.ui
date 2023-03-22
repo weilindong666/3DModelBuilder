@@ -47,13 +47,14 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>开始</string>
+     <string>文件</string>
     </property>
     <widget class="QMenu" name="menu_2">
      <property name="title">
       <string>导入</string>
      </property>
-     <addaction name="action_import_dataset"/>
+     <addaction name="action_import_single_file"/>
+     <addaction name="action_import_folder"/>
      <addaction name="action_import_ROI"/>
      <addaction name="action_import_model"/>
     </widget>
@@ -80,15 +81,15 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="action_import_dataset"/>
+   <addaction name="action_import_single_file"/>
    <addaction name="action_import_ROI"/>
   </widget>
-  <action name="action_import_dataset">
+  <action name="action_import_single_file">
    <property name="text">
-    <string>数据集</string>
+    <string>单个文件</string>
    </property>
    <property name="toolTip">
-    <string>导入数据集</string>
+    <string>导入单个文件</string>
    </property>
   </action>
   <action name="action_import_ROI">
@@ -121,6 +122,14 @@
    </property>
    <property name="toolTip">
     <string>导出模型</string>
+   </property>
+  </action>
+  <action name="action_import_folder">
+   <property name="text">
+    <string>文件夹</string>
+   </property>
+   <property name="toolTip">
+    <string>导入文件夹</string>
    </property>
   </action>
  </widget>

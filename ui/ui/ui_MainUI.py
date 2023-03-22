@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIGqAiJk.ui'
+## Form generated from reading UI file 'MainUIctIwph.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -21,8 +21,8 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1360, 898)
         MainWindow.setMinimumSize(QSize(800, 600))
-        self.action_import_dataset = QAction(MainWindow)
-        self.action_import_dataset.setObjectName(u"action_import_dataset")
+        self.action_import_single_file = QAction(MainWindow)
+        self.action_import_single_file.setObjectName(u"action_import_single_file")
         self.action_import_ROI = QAction(MainWindow)
         self.action_import_ROI.setObjectName(u"action_import_ROI")
         self.action_import_model = QAction(MainWindow)
@@ -31,6 +31,8 @@ class Ui_MainWindow(object):
         self.action_export_ROI.setObjectName(u"action_export_ROI")
         self.action_export_model = QAction(MainWindow)
         self.action_export_model.setObjectName(u"action_export_model")
+        self.action_import_folder = QAction(MainWindow)
+        self.action_import_folder.setObjectName(u"action_import_folder")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -75,12 +77,13 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu.menuAction())
         self.menu.addAction(self.menu_2.menuAction())
         self.menu.addAction(self.menu_3.menuAction())
-        self.menu_2.addAction(self.action_import_dataset)
+        self.menu_2.addAction(self.action_import_single_file)
+        self.menu_2.addAction(self.action_import_folder)
         self.menu_2.addAction(self.action_import_ROI)
         self.menu_2.addAction(self.action_import_model)
         self.menu_3.addAction(self.action_export_ROI)
         self.menu_3.addAction(self.action_export_model)
-        self.toolBar.addAction(self.action_import_dataset)
+        self.toolBar.addAction(self.action_import_single_file)
         self.toolBar.addAction(self.action_import_ROI)
 
         self.retranslateUi(MainWindow)
@@ -90,9 +93,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.action_import_dataset.setText(QCoreApplication.translate("MainWindow", u"\u6570\u636e\u96c6", None))
+        self.action_import_single_file.setText(QCoreApplication.translate("MainWindow", u"\u5355\u4e2a\u6587\u4ef6", None))
 #if QT_CONFIG(tooltip)
-        self.action_import_dataset.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u6570\u636e\u96c6", None))
+        self.action_import_single_file.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u5355\u4e2a\u6587\u4ef6", None))
 #endif // QT_CONFIG(tooltip)
         self.action_import_ROI.setText(QCoreApplication.translate("MainWindow", u"ROI", None))
 #if QT_CONFIG(tooltip)
@@ -110,7 +113,11 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.action_export_model.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa\u6a21\u578b", None))
 #endif // QT_CONFIG(tooltip)
-        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u5f00\u59cb", None))
+        self.action_import_folder.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u5939", None))
+#if QT_CONFIG(tooltip)
+        self.action_import_folder.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u6587\u4ef6\u5939", None))
+#endif // QT_CONFIG(tooltip)
+        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165", None))
         self.menu_3.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
