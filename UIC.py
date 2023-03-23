@@ -6,12 +6,16 @@
 @File    : UIC.py
 @Software: PyCharm
 '''
-from PySide2.QtWidgets import QFileDialog, QMessageBox
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 import os
 
 class UIC:
     nowpath = os.path.dirname(__file__).replace('\\', '/')
     image_none = nowpath + '/texture/none.png'
+    app_icon = nowpath + '/texture/i.png'
+    import_single_file_icon = nowpath + '/texture/import_single_file.png'
+    import_folder_icon = nowpath + '/texture/import_folder.png'
     def __init__(self):
         pass
 

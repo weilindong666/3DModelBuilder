@@ -22,7 +22,7 @@ class Tools:
         data = pydicom.read_file(filePath)
         if not os.path.exists(targetPath):
             os.makedirs(targetPath)
-        targetPath = targetPath + '/' + os.path.basename(filePath).split()[0] + '.png'
+        targetPath = targetPath + '/' + os.path.basename(filePath).split('.')[0] + '.png'
         try:
             image = self.normaliza(data.pixel_array)
         except Exception:
@@ -30,19 +30,20 @@ class Tools:
         cv2.imwrite(targetPath, image * 255)
         return [targetPath]
 
-    def deleteTemp(self, path_file):
+    def clearFolder(self, path_file):
         ls = os.listdir(path_file)
         for i in ls:
             f_path = os.path.join(path_file, i)
             # 判断是否是一个目录,若是,则递归删除
             if os.path.isdir(f_path):
-                self.deleteTemp(f_path)
+                self.clearFolder(f_path)
+                os.rmdir(f_path)
             else:
                 os.remove(f_path)
 
     def niigzToPng(self, filePath, targetPath, father=None):
         self.images = []
-        targetPath = targetPath + '/' + os.path.basename(filePath)
+        targetPath = targetPath + '/' + os.path.basename(filePath).split('.')[0]
         if not os.path.exists(targetPath):
             os.makedirs(targetPath)
         image_arr = nib.load(filePath).get_fdata()
@@ -71,3 +72,10 @@ class Tools:
         image = cv2.imread(image_path)
         height, width, channels = image.shape
         return height / width
+
+    def findAllParticularFiles(self, filepath, type_='dcm'):
+        files = []
+        for file in os.listdir(filepath):
+            if file.endswith(type_):
+                files.append(filepath + '/' + file)
+        return files

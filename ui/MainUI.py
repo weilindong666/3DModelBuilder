@@ -6,9 +6,11 @@
 @File    : MainUI.py
 @Software: PyCharm
 '''
+import os.path
 from ui.ui.ui_MainUI import Ui_MainWindow
 from PySide2.QtWidgets import QMainWindow, QFileDialog
 from PySide2.QtCore import QSize, Qt, QPoint
+from PySide2.QtGui import QIcon
 from MySignals import MySignals
 from UIC import UIC
 from lib.Tools import Tools
@@ -21,6 +23,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
     def __init__(self):
         super(MainUI, self).__init__()
         self.setupUi(self)
+        self.initIcon()
         self.MySignals = MySignals()
         # 由 vertical line 控制控件大小
         self.line.setMouseTracking(True)
@@ -37,6 +40,10 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
 
     # def printnum(self):
     #     self.MySignals.my_first_signal.emit(5)
+    def initIcon(self):
+        self.setWindowIcon(QIcon(self.app_icon))
+        self.action_import_single_file.setIcon(QIcon(self.import_single_file_icon))
+        self.action_import_folder.setIcon(QIcon(self.import_folder_icon))
 
     def importSingleFile(self):
         filepath, _ = QFileDialog.getOpenFileName(self, '选择单个文件', self.nowpath, '(*.nii.gz *.dcm)')
@@ -45,7 +52,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
             if filepath.endswith('nii.gz'):
                 images = self.tools.niigzToPng(filepath, self.nowpath + '/temp', self)
             elif filepath.endswith('dcm'):
-                images = self.tools.dcmToPng(filepath, self.nowpath + '/temp', self)
+                images = self.tools.dcmToPng(filepath, self.nowpath + '/temp/' + os.path.basename(filepath).split('.')[0], self)
         else:
             return
         self.createListWidgetItem(images)
@@ -55,9 +62,19 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         filePath = QFileDialog.getExistingDirectory(self, "选择文件夹")
         if filePath:
             # 查找所有的dcm文件或者nii.gz文件
+            dcms = self.tools.findAllParticularFiles(filePath)
+            niis = self.tools.findAllParticularFiles(filePath, type_='nii.gz')
             # 把文件中的图像提取出来
-            pass
-        # 创建listwidget item
+            if dcms:
+                image_dcm = []
+                for dcm in dcms:
+                    image = self.tools.dcmToPng(dcm, self.nowpath + './temp/' + os.path.basename(filePath))[0]
+                    image_dcm.append(image)
+                self.createListWidgetItem(image_dcm)
+            if niis:
+                for nii in niis:
+                    images = self.tools.niigzToPng(nii, self.nowpath + '/temp')
+                    self.createListWidgetItem(images)
 
     def createListWidgetItem(self, images):
         aspect_ratio = self.tools.getAspectRatio(images[0])
