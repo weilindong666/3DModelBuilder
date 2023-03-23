@@ -8,6 +8,7 @@
 '''
 from PySide2.QtWidgets import *
 import os
+# from MySignals import MySignals
 
 class UIC:
     nowpath = os.path.dirname(__file__).replace('\\', '/')
@@ -15,6 +16,7 @@ class UIC:
     app_icon = nowpath + '/texture/i.png'
     import_single_file_icon = nowpath + '/texture/import_single_file.png'
     import_folder_icon = nowpath + '/texture/import_folder.png'
+    # MySignals = MySignals()
     def __init__(self):
         pass
 

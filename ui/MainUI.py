@@ -11,7 +11,6 @@ from ui.ui.ui_MainUI import Ui_MainWindow
 from PySide2.QtWidgets import QMainWindow, QFileDialog
 from PySide2.QtCore import QSize, Qt, QPoint
 from PySide2.QtGui import QIcon
-from MySignals import MySignals
 from UIC import UIC
 from lib.Tools import Tools
 from ui.ui.list_widget import ListWidgetItem
@@ -20,11 +19,11 @@ from threading import Thread
 
 
 class MainUI(QMainWindow, Ui_MainWindow, UIC):
-    def __init__(self):
+    def __init__(self, MySignals):
         super(MainUI, self).__init__()
         self.setupUi(self)
         self.initIcon()
-        self.MySignals = MySignals()
+        self.MySignals = MySignals
         # 由 vertical line 控制控件大小
         self.line.setMouseTracking(True)
         self.line_splitter = False
@@ -37,6 +36,12 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         self.tools = Tools()
         self.action_import_single_file.triggered.connect(self.importSingleFile)
         self.action_import_folder.triggered.connect(self.importFolder)
+        # 右键图像打开菜单
+        self.listWidget_1.setContextMenuPolicy(Qt.CustomContextMenu)  # 设置上下文菜单策略
+        self.listWidget_1.customContextMenuRequested.connect(lambda pos: self.listWidget_1.currentItem().showMenue(pos))  # 绑定事件
+        self.MySignals.create_model_signal.connect(self.createModel)
+        self.MySignals.manual_ROI_signal.connect(self.createModel)
+        self.MySignals.auto_ROI_signal.connect(self.createModel)
 
     # def printnum(self):
     #     self.MySignals.my_first_signal.emit(5)
@@ -78,7 +83,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
 
     def createListWidgetItem(self, images):
         aspect_ratio = self.tools.getAspectRatio(images[0])
-        item = ListWidgetItem(images, aspect_ratio)
+        item = ListWidgetItem(images, aspect_ratio, self.listWidget_1, self.MySignals)
         self.listWidget_1.addItem(item)
         self.listWidget_1.setItemWidget(item, item.image_widget)
         item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio * self.listWidget_1.width()))
@@ -117,3 +122,6 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 item = self.listWidget_1.item(index)
                 if item is not None:
                     item.setSizeHint(QSize(int(self.listWidget_1.width()*0.95), int(item.aspect_ratio*self.listWidget_1.width())))
+
+    def createModel(self):
+        print('777')

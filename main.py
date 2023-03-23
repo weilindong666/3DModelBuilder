@@ -15,9 +15,9 @@ class MainService:
     def __init__(self):
         self.tools = Tools()
         self.tools.clearFolder('./temp')
-        self.app = QApplication()
-        self.UI_Master = UI_Master()
         self.MySignals = MySignals()
+        self.app = QApplication()
+        self.UI_Master = UI_Master(self.MySignals)
         self.initUI()
         self.initSignal()
         self.app.aboutToQuit.connect(self.quit)

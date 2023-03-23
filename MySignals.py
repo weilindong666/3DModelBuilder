@@ -10,4 +10,8 @@ from PySide2.QtCore import Signal, QObject
 
 class MySignals(QObject):
     my_first_signal = Signal(int)
+    open_GL_window = Signal()
+    create_model_signal = Signal()
+    manual_ROI_signal = Signal()
+    auto_ROI_signal = Signal()
     pass

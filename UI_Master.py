@@ -11,5 +11,5 @@ from ui.MainUI import MainUI
 
 class UI_Master:
 
-    def __init__(self):
-        self.MainUI = MainUI()
+    def __init__(self, MySignals):
+        self.MainUI = MainUI(MySignals)
