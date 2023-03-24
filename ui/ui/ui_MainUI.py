@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUICfhhxr.ui'
+## Form generated from reading UI file 'MainUIEtQsRI.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,6 +13,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 from ui.ui.list_widget import ListWidget
+from ui.ui.MDI_subWindows import MyMdiWidget
 
 
 class Ui_MainWindow(object):
@@ -49,10 +50,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.line)
 
-        self.mdiArea = QMdiArea(self.centralwidget)
-        self.mdiArea.setObjectName(u"mdiArea")
+        self.widget = MyMdiWidget(self.centralwidget)
+        self.widget.setObjectName(u"widget")
 
-        self.horizontalLayout.addWidget(self.mdiArea)
+        self.horizontalLayout.addWidget(self.widget)
 
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(2, 8)

@@ -32,7 +32,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QMdiArea" name="mdiArea"/>
+     <widget class="MyMdiWidget" name="widget" native="true"/>
     </item>
    </layout>
   </widget>
@@ -138,6 +138,12 @@
    <class>ListWidget</class>
    <extends>QListWidget</extends>
    <header>ui.ui.list_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyMdiWidget</class>
+   <extends>QWidget</extends>
+   <header>ui.ui.MDI_subWindows</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

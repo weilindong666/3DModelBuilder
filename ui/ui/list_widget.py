@@ -7,7 +7,7 @@
 @Software: PyCharm
 '''
 from PySide2.QtWidgets import QListWidgetItem, QMenu, QAction, QListWidget
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QSize
 from ui.ui.Image_widget import ImageWidget
 from ui.ImageViewerUI import ImageViewerUI
 
@@ -22,6 +22,12 @@ class ListWidget(QListWidget):
         item = self.itemAt(pos)
         if item is not None:
             item.showMenue(pos)
+
+    def createItem(self, images, aspect_ratio, MySignals):
+        item = ListWidgetItem(images, aspect_ratio, self, MySignals)
+        self.addItem(item)
+        self.setItemWidget(item, item.image_widget)
+        item.setSizeHint(QSize(self.width(), aspect_ratio * self.width()))
 
 class ListWidgetItem(QListWidgetItem):
     def __init__(self, address, aspect_ratio, parent=None, MySignals=None):
@@ -60,5 +66,4 @@ class ListWidgetItem(QListWidgetItem):
 
     def mouseDoubleClickEvent_item(self, event):
         # 打开新界面进行ROI勾画
-        print('double clicked')
         self.MySignals.manual_ROI_signal.emit('manualROI')

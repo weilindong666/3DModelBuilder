@@ -14,7 +14,7 @@ from PySide2.QtWidgets import QOpenGLWidget
 
 class openGL_Widget(QOpenGLWidget):
     def __init__(self, parent=None):
-        super().__init__(parent)
+        super(openGL_Widget, self).__init__(parent)
 
     # 启动时会先调用 initializeGL, 再调用 resizeGL , 最后调用两次 paintGL
     # 出现窗口覆盖等情况时, 会自动调用 paintGL
@@ -82,7 +82,7 @@ class openGL_Widget(QOpenGLWidget):
         # gluPerspective(45, w / h, 0.01, 100.0)
         # glMatrixMode(GL_MODELVIEW)
         # glLoadIdentity()
-    #     gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)
+        # gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)
 
     # def mousemotion(self, x, y):
     #     print(x, y)

@@ -13,8 +13,6 @@ from PySide2.QtCore import QSize, Qt
 from PySide2.QtGui import QIcon
 from UIC import UIC
 from lib.Tools import Tools
-from ui.ui.list_widget import ListWidgetItem
-from ui.ui.MDI_subWindows import ImageShowUI, OpenGLUI
 
 
 class MainUI(QMainWindow, Ui_MainWindow, UIC):
@@ -23,6 +21,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         self.setupUi(self)
         self.initIcon()
         self.MySignals = MySignals
+        self.widget.loadSignals(self.MySignals)
         # 由 vertical line 控制控件大小
         self.line.setMouseTracking(True)
         self.line_splitter = False
@@ -35,10 +34,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         self.tools = Tools()
         self.action_import_single_file.triggered.connect(self.importSingleFile)
         self.action_import_folder.triggered.connect(self.importFolder)
-        # 打开MDI子页面
-        self.MDI_sub_windows = {'createModel': OpenGLUI, 'manualROI': ImageShowUI, 'autoROI': ImageShowUI}
-        self.MySignals.manual_ROI_signal.connect(self.openMDIUI)
-        self.MySignals.create_model_signal.connect(self.openMDIUI)
+
     # def printnum(self):
     #     self.MySignals.my_first_signal.emit(5)
     def initIcon(self):
@@ -56,7 +52,8 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 images = self.tools.dcmToPng(filepath, self.nowpath + '/temp/' + os.path.basename(filepath).split('.')[0], self)
         else:
             return
-        self.createListWidgetItem(images)
+        aspect_ratio = self.tools.getAspectRatio(images[0])
+        self.listWidget_1.createItem(images, aspect_ratio, self.MySignals)
 
     def importFolder(self):
         '''还没写完, 还可以再改一改图像的显示'''
@@ -71,18 +68,13 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 for dcm in dcms:
                     image = self.tools.dcmToPng(dcm, self.nowpath + './temp/' + os.path.basename(filePath))[0]
                     image_dcm.append(image)
-                self.createListWidgetItem(image_dcm)
+                aspect_ratio = self.tools.getAspectRatio(image_dcm[0])
+                self.listWidget_1.createItem(image_dcm, aspect_ratio, self.MySignals)
             if niis:
                 for nii in niis:
                     images = self.tools.niigzToPng(nii, self.nowpath + '/temp')
-                    self.createListWidgetItem(images)
-
-    def createListWidgetItem(self, images):
-        aspect_ratio = self.tools.getAspectRatio(images[0])
-        item = ListWidgetItem(images, aspect_ratio, self.listWidget_1, self.MySignals)
-        self.listWidget_1.addItem(item)
-        self.listWidget_1.setItemWidget(item, item.image_widget)
-        item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio * self.listWidget_1.width()))
+                    aspect_ratio = self.tools.getAspectRatio(images[0])
+                    self.listWidget_1.createItem(images, aspect_ratio, self.MySignals)
 
     def mousePressEvent_line(self, event):
         if event.button() == Qt.LeftButton:
@@ -117,8 +109,3 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 item = self.listWidget_1.item(index)
                 if item is not None:
                     item.setSizeHint(QSize(int(self.listWidget_1.width()*0.95), int(item.aspect_ratio*self.listWidget_1.width())))
-
-    def openMDIUI(self, UI_name):
-        subWindow = self.MDI_sub_windows[UI_name](self)
-        self.mdiArea.addSubWindow(subWindow)
-        subWindow.showMaximized()
