@@ -6,10 +6,22 @@
 @File    : list_widget.py
 @Software: PyCharm
 '''
-from PySide2.QtWidgets import QListWidgetItem, QMenu, QAction
+from PySide2.QtWidgets import QListWidgetItem, QMenu, QAction, QListWidget
+from PySide2.QtCore import Qt
 from ui.ui.Image_widget import ImageWidget
 from ui.ImageViewerUI import ImageViewerUI
 
+
+class ListWidget(QListWidget):
+    def __init__(self, parent=None):
+        super(ListWidget, self).__init__()
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.customMenue)
+
+    def customMenue(self, pos):
+        item = self.itemAt(pos)
+        if item is not None:
+            item.showMenue(pos)
 
 class ListWidgetItem(QListWidgetItem):
     def __init__(self, address, aspect_ratio, parent=None, MySignals=None):
@@ -27,10 +39,12 @@ class ListWidgetItem(QListWidgetItem):
     def addItem(self, address):
         self.image_widget = ImageWidget()
         self.image_widget.updateA(address[0])
+        self.image_widget.mouseDoubleClickEvent = self.mouseDoubleClickEvent_item
 
     def addItems(self, addresses):
         self.image_widget = ImageViewerUI(addresses)
         self.image_widget.widget.updateA(addresses[0])
+        self.image_widget.widget.mouseDoubleClickEvent = self.mouseDoubleClickEvent_item
 
     def showMenue(self, pos):
         menue = QMenu()
@@ -44,5 +58,7 @@ class ListWidgetItem(QListWidgetItem):
         elif action == self.actions['autoROI']:
             self.MySignals.auto_ROI_signal.emit()
 
-    # def process(self):
-    #     self.MySigals.open_GL_window.emit()
+    def mouseDoubleClickEvent_item(self, event):
+        # 打开新界面进行ROI勾画
+        print('double clicked')
+        pass

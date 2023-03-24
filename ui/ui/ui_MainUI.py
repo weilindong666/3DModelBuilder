@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIctIwph.ui'
+## Form generated from reading UI file 'MainUIrXXtjH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,6 +13,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 from ui.ui.opengl_widget import openGL_Widget
+from ui.ui.list_widget import ListWidget
 
 
 class Ui_MainWindow(object):
@@ -37,7 +38,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.listWidget_1 = QListWidget(self.centralwidget)
+        self.listWidget_1 = ListWidget(self.centralwidget)
         self.listWidget_1.setObjectName(u"listWidget_1")
 
         self.horizontalLayout.addWidget(self.listWidget_1)

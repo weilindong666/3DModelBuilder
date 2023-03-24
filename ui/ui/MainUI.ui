@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,8">
     <item>
-     <widget class="QListWidget" name="listWidget_1"/>
+     <widget class="ListWidget" name="listWidget_1"/>
     </item>
     <item>
      <widget class="Line" name="line">
@@ -139,6 +139,11 @@
    <extends>QWidget</extends>
    <header>ui.ui.opengl_widget</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
+   <header>ui.ui.list_widget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
