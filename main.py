@@ -21,7 +21,7 @@ class MainService:
         self.initUI()
         self.initSignal()
         self.app.aboutToQuit.connect(self.quit)
-        pass
+
 
     def initUI(self):
         self.UI_Master.MainUI.show()
