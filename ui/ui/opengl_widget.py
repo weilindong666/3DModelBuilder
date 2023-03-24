@@ -16,14 +16,6 @@ class openGL_Widget(QOpenGLWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-
-    # def mouseMoveEvent(self, event):
-    #     print(event)
-        # 这个三个是虚函数, 需要重写
-        # paintGL
-        # initializeGL
-        # resizeGL
-
     # 启动时会先调用 initializeGL, 再调用 resizeGL , 最后调用两次 paintGL
     # 出现窗口覆盖等情况时, 会自动调用 paintGL
     # 调用过程参考 https://segmentfault.com/a/1190000002403921

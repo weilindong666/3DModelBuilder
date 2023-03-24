@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIrXXtjH.ui'
+## Form generated from reading UI file 'MainUICfhhxr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -12,7 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.ui.opengl_widget import openGL_Widget
 from ui.ui.list_widget import ListWidget
 
 
@@ -50,10 +49,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.line)
 
-        self.widget = openGL_Widget(self.centralwidget)
-        self.widget.setObjectName(u"widget")
+        self.mdiArea = QMdiArea(self.centralwidget)
+        self.mdiArea.setObjectName(u"mdiArea")
 
-        self.horizontalLayout.addWidget(self.widget)
+        self.horizontalLayout.addWidget(self.mdiArea)
 
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(2, 8)

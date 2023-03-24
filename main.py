@@ -28,6 +28,15 @@ class MainService:
 
     def initSignal(self):
         self.MySignals.my_first_signal.connect(self.firstSiganl)
+        # 右键图像打开菜单进入其他界面
+
+        # self.MySignals.auto_ROI_signal.connect(self.createModel)
+
+    def openImageShowUI(self):
+        pass
+
+    def createModel(self):
+        print('create model')
 
     def firstSiganl(self, num):
         print(num)

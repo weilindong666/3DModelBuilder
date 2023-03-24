@@ -52,13 +52,13 @@ class ListWidgetItem(QListWidgetItem):
             menue.addAction(act)
         action = menue.exec_(self.listWidget().mapToGlobal(pos))
         if action == self.actions['createModel']:
-            self.MySignals.create_model_signal.emit()
+            self.MySignals.create_model_signal.emit('createModel')
         elif action == self.actions['manualROI']:
-            self.MySignals.manual_ROI_signal.emit()
+            self.MySignals.manual_ROI_signal.emit('manualROI')
         elif action == self.actions['autoROI']:
-            self.MySignals.auto_ROI_signal.emit()
+            self.MySignals.auto_ROI_signal.emit('autoROI')
 
     def mouseDoubleClickEvent_item(self, event):
         # 打开新界面进行ROI勾画
         print('double clicked')
-        pass
+        self.MySignals.manual_ROI_signal.emit('manualROI')

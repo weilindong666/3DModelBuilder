@@ -14,6 +14,7 @@ from PySide2.QtGui import QIcon
 from UIC import UIC
 from lib.Tools import Tools
 from ui.ui.list_widget import ListWidgetItem
+from ui.ui.MDI_subWindows import ImageShowUI, OpenGLUI
 
 
 class MainUI(QMainWindow, Ui_MainWindow, UIC):
@@ -34,12 +35,10 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         self.tools = Tools()
         self.action_import_single_file.triggered.connect(self.importSingleFile)
         self.action_import_folder.triggered.connect(self.importFolder)
-        # 右键图像打开菜单
-        self.MySignals.create_model_signal.connect(self.createModel)
-        self.MySignals.manual_ROI_signal.connect(self.createModel)
-        self.MySignals.auto_ROI_signal.connect(self.createModel)
-
-
+        # 打开MDI子页面
+        self.MDI_sub_windows = {'createModel': OpenGLUI, 'manualROI': ImageShowUI, 'autoROI': ImageShowUI}
+        self.MySignals.manual_ROI_signal.connect(self.openMDIUI)
+        self.MySignals.create_model_signal.connect(self.openMDIUI)
     # def printnum(self):
     #     self.MySignals.my_first_signal.emit(5)
     def initIcon(self):
@@ -83,9 +82,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         item = ListWidgetItem(images, aspect_ratio, self.listWidget_1, self.MySignals)
         self.listWidget_1.addItem(item)
         self.listWidget_1.setItemWidget(item, item.image_widget)
-        # item.image_widget.customContextMenuRequested.connect(item.customMenue)
         item.setSizeHint(QSize(self.listWidget_1.width(), aspect_ratio * self.listWidget_1.width()))
-
 
     def mousePressEvent_line(self, event):
         if event.button() == Qt.LeftButton:
@@ -121,5 +118,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 if item is not None:
                     item.setSizeHint(QSize(int(self.listWidget_1.width()*0.95), int(item.aspect_ratio*self.listWidget_1.width())))
 
-    def createModel(self):
-        print('create model')
+    def openMDIUI(self, UI_name):
+        subWindow = self.MDI_sub_windows[UI_name](self)
+        self.mdiArea.addSubWindow(subWindow)
+        subWindow.showMaximized()

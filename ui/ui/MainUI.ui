@@ -32,7 +32,7 @@
      </widget>
     </item>
     <item>
-     <widget class="openGL_Widget" name="widget" native="true"/>
+     <widget class="QMdiArea" name="mdiArea"/>
     </item>
    </layout>
   </widget>
@@ -134,12 +134,6 @@
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>openGL_Widget</class>
-   <extends>QWidget</extends>
-   <header>ui.ui.opengl_widget</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>ListWidget</class>
    <extends>QListWidget</extends>
