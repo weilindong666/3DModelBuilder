@@ -111,3 +111,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                 self.line.move(width + move + 15, self.line.pos().y())
                 self.widget.resize(QSize(self.widget.width() - move, self.widget.height()))
                 self.widget.move(width + move + 24, self.widget.pos().y())
+
+    def resizeEvent(self, event):
+        pass
+        # print(self.widget.width(), self.widget.height())

@@ -46,12 +46,15 @@ class ImageShowUI(QMdiSubWindow):
         self.initUI()
         self.importAttribute(**kwargs)
         self.MySignals.show_image_on_MDI.connect(self.showImage)
+        self.draw = False
 
     def initUI(self):
         self.setWindowTitle("Image Show")
         self.setGeometry(200, 200, 400, 300)
         self.widget = MyImageWidget()
         self.widget.mousePressEvent = self.mousePressEvent_image
+        self.widget.mouseMoveEvent = self.mouseMoveEvent_image
+        self.widget.mouseReleaseEvent = self.mouseReleaseEvent_image
         self.setWindowIcon(QIcon(''))
         self.layout = QVBoxLayout(self.widget)
         self.setWidget(self.widget)
@@ -67,11 +70,16 @@ class ImageShowUI(QMdiSubWindow):
 
     def showImage(self, kwargs):
         image = kwargs['images']
-        width, height = self.widget.get_width_height()
-        self.widget.resize(height * kwargs['aspectRatio'], height)
         self.widget.updateA(image, aspect='equal')
 
     def mousePressEvent_image(self, event):
         if event.button() == Qt.LeftButton:
-            print(event.pos())
-            print(self.widget.get_width_height())
+            self.draw = True
+
+    def mouseMoveEvent_image(self, event):
+        if event.button() == Qt.LeftButton and self.draw:
+            pass
+
+    def mouseReleaseEvent_image(self, event):
+        if event.button() == Qt.LeftButton:
+            self.draw = False

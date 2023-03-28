@@ -29,11 +29,13 @@ class MyImageWidget(FigureCanvas):
         fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
         self.axes.set_position([0, 0, 1, 1])
 
-    def updateA(self, image, aspect='auto', if_RGB=False):
+    def updateA(self, image, aspect='auto', if_RGB=False, title=None):
         self.axes.clear()
         if os.path.isfile(image):
             image = cv2.imread(image)
         if if_RGB:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        if title is not None:
+            self.axes.set_title(title)
         self.axes.imshow(image, extent=(0, 1000, 0, 1000), aspect=aspect)
         self.draw()
