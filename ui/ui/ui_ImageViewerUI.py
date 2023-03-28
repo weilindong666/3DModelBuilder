@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.ui.Image_widget import ImageWidget
+from ui.ui.Image_widget import MyImageWidget
 
 
 class Ui_Form(object):
@@ -22,7 +22,7 @@ class Ui_Form(object):
         Form.resize(400, 300)
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.widget = ImageWidget(Form)
+        self.widget = MyImageWidget(Form)
         self.widget.setObjectName(u"widget")
 
         self.verticalLayout.addWidget(self.widget)

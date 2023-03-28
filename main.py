@@ -10,14 +10,16 @@ from PySide2.QtWidgets import QApplication
 from MySignals import MySignals
 from UI_Master import UI_Master
 from lib.Tools import Tools
+from concurrent.futures import ThreadPoolExecutor
 
 class MainService:
     def __init__(self):
         self.tools = Tools()
+        self.Pool = ThreadPoolExecutor(max_workers=2)
         self.tools.clearFolder('./temp')
         self.MySignals = MySignals()
         self.app = QApplication()
-        self.UI_Master = UI_Master(self.MySignals)
+        self.UI_Master = UI_Master(self.MySignals, self.Pool, self.tools)
         self.initUI()
         self.initSignal()
         self.app.aboutToQuit.connect(self.quit)
@@ -28,9 +30,6 @@ class MainService:
 
     def initSignal(self):
         self.MySignals.my_first_signal.connect(self.firstSiganl)
-        # 右键图像打开菜单进入其他界面
-
-        # self.MySignals.auto_ROI_signal.connect(self.createModel)
 
     def openImageShowUI(self):
         pass
@@ -44,7 +43,7 @@ class MainService:
     def quit(self):
         self.tools.clearFolder('./temp')
         self.UI_Master.MainUI.close()
-
+        self.Pool.shutdown(wait=False)
 
 if __name__ == '__main__':
     app = MainService()

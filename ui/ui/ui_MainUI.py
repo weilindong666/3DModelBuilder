@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MainUIEtQsRI.ui'
+## Form generated from reading UI file 'MainUIUSONgQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from ui.ui.list_widget import ListWidget
+from ui.ui.MyListWidget import MyListWidget
 from ui.ui.MDI_subWindows import MyMdiWidget
 
 
@@ -34,14 +34,16 @@ class Ui_MainWindow(object):
         self.action_export_model.setObjectName(u"action_export_model")
         self.action_import_folder = QAction(MainWindow)
         self.action_import_folder.setObjectName(u"action_import_folder")
+        self.action_go_back = QAction(MainWindow)
+        self.action_go_back.setObjectName(u"action_go_back")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.listWidget_1 = ListWidget(self.centralwidget)
-        self.listWidget_1.setObjectName(u"listWidget_1")
+        self.listWidget = MyListWidget(self.centralwidget)
+        self.listWidget.setObjectName(u"listWidget")
 
-        self.horizontalLayout.addWidget(self.listWidget_1)
+        self.horizontalLayout.addWidget(self.listWidget)
 
         self.line = QFrame(self.centralwidget)
         self.line.setObjectName(u"line")
@@ -78,6 +80,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu.menuAction())
         self.menu.addAction(self.menu_2.menuAction())
         self.menu.addAction(self.menu_3.menuAction())
+        self.menu.addAction(self.action_go_back)
         self.menu_2.addAction(self.action_import_single_file)
         self.menu_2.addAction(self.action_import_folder)
         self.menu_2.addAction(self.action_import_ROI)
@@ -85,7 +88,8 @@ class Ui_MainWindow(object):
         self.menu_3.addAction(self.action_export_ROI)
         self.menu_3.addAction(self.action_export_model)
         self.toolBar.addAction(self.action_import_single_file)
-        self.toolBar.addAction(self.action_import_ROI)
+        self.toolBar.addAction(self.action_import_folder)
+        self.toolBar.addAction(self.action_go_back)
 
         self.retranslateUi(MainWindow)
 
@@ -118,6 +122,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.action_import_folder.setToolTip(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u6587\u4ef6\u5939", None))
 #endif // QT_CONFIG(tooltip)
+        self.action_go_back.setText(QCoreApplication.translate("MainWindow", u"\u8fd4\u56de", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165", None))
         self.menu_3.setTitle(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa", None))

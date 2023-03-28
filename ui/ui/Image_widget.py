@@ -7,11 +7,12 @@
 @Software: PyCharm
 '''
 import cv2
+import os
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 # import matplotlib.image as img
 
-class ImageWidget(FigureCanvas):
+class MyImageWidget(FigureCanvas):
     def __init__(self, parent=None):
         fig = plt.figure(dpi=100, tight_layout=True, facecolor='black')
         fig.patch.set_alpha(0.0)
@@ -24,13 +25,14 @@ class ImageWidget(FigureCanvas):
         self.axes.spines['bottom'].set_visible(False)  # 去掉绘图时下面的横线
         self.axes.get_xaxis().set_visible(False)
         self.axes.get_yaxis().set_visible(False)
-        self.now_graph = None
         # self.updateA('./result/feature_stats.png')
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+        self.axes.set_position([0, 0, 1, 1])
 
-    def updateA(self, address, aspect='auto', if_RGB=False):
-        self.now_graph = address
+    def updateA(self, image, aspect='auto', if_RGB=False):
         self.axes.clear()
-        image = cv2.imread(address)
+        if os.path.isfile(image):
+            image = cv2.imread(image)
         if if_RGB:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         self.axes.imshow(image, extent=(0, 1000, 0, 1000), aspect=aspect)

@@ -26,7 +26,8 @@ class Tools:
         try:
             image = self.normaliza(data.pixel_array)
         except Exception:
-            father.worning(father, '文件中没有图像信息！')
+            if father:
+                father.worning(father, '文件中没有图像信息！')
         cv2.imwrite(targetPath, image * 255)
         return [targetPath]
 
@@ -47,6 +48,8 @@ class Tools:
         if not os.path.exists(targetPath):
             os.makedirs(targetPath)
         image_arr = nib.load(filePath).get_fdata()
+        for i in range(image_arr.shape[2]):
+            self.images.append(i)
         with ThreadPoolExecutor(max_workers=5) as pool:
             for index in range(image_arr.shape[2]):
                 pool.submit(lambda cxp: self.saveImage(*cxp),
@@ -58,7 +61,8 @@ class Tools:
         image = self.normaliza(image)
         image = cv2.resize(image, (512, 512))
         cv2.imwrite(address, image * 255.0)
-        self.images.append(address)
+        self.images[index] = address
+
 
     def normaliza(self, x):
         '''

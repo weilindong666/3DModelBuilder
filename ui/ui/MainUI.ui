@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,8">
     <item>
-     <widget class="ListWidget" name="listWidget_1"/>
+     <widget class="MyListWidget" name="listWidget"/>
     </item>
     <item>
      <widget class="Line" name="line">
@@ -67,6 +67,7 @@
     </widget>
     <addaction name="menu_2"/>
     <addaction name="menu_3"/>
+    <addaction name="action_go_back"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -82,7 +83,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="action_import_single_file"/>
-   <addaction name="action_import_ROI"/>
+   <addaction name="action_import_folder"/>
+   <addaction name="action_go_back"/>
   </widget>
   <action name="action_import_single_file">
    <property name="text">
@@ -132,12 +134,17 @@
     <string>导入文件夹</string>
    </property>
   </action>
+  <action name="action_go_back">
+   <property name="text">
+    <string>返回</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ListWidget</class>
+   <class>MyListWidget</class>
    <extends>QListWidget</extends>
-   <header>ui.ui.list_widget.h</header>
+   <header>ui.ui.MyListWidget.h</header>
   </customwidget>
   <customwidget>
    <class>MyMdiWidget</class>

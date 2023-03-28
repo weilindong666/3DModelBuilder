@@ -12,16 +12,18 @@ from PySide2.QtWidgets import QMainWindow, QFileDialog
 from PySide2.QtCore import QSize, Qt
 from PySide2.QtGui import QIcon
 from UIC import UIC
-from lib.Tools import Tools
 
 
 class MainUI(QMainWindow, Ui_MainWindow, UIC):
-    def __init__(self, MySignals):
+    def __init__(self, MySignals, Pool, Tools):
         super(MainUI, self).__init__()
         self.setupUi(self)
         self.initIcon()
         self.MySignals = MySignals
+        self.Pool = Pool
+        self.tools = Tools
         self.widget.loadSignals(self.MySignals)
+        self.listWidget.loadTools(self.MySignals, self.Pool, self.tools)
         # 由 vertical line 控制控件大小
         self.line.setMouseTracking(True)
         self.line_splitter = False
@@ -29,14 +31,12 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         self.line.mousePressEvent = self.mousePressEvent_line
         self.line.mouseMoveEvent = self.mouseMoveEvent_line
         self.line.mouseReleaseEvent = self.mouseReleaseEvent_line
-        self.listWidget_1.resizeEvent = self.resizeEvent_listwidget
         # 导入文件
-        self.tools = Tools()
         self.action_import_single_file.triggered.connect(self.importSingleFile)
         self.action_import_folder.triggered.connect(self.importFolder)
+        # 返回原来的界面
+        self.action_go_back.triggered.connect(self.listWidget.back)
 
-    # def printnum(self):
-    #     self.MySignals.my_first_signal.emit(5)
     def initIcon(self):
         self.setWindowIcon(QIcon(self.app_icon))
         self.action_import_single_file.setIcon(QIcon(self.import_single_file_icon))
@@ -53,7 +53,7 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
         else:
             return
         aspect_ratio = self.tools.getAspectRatio(images[0])
-        self.listWidget_1.createItem(images, aspect_ratio, self.MySignals)
+        self.listWidget.createItem({'images': images, 'aspectRatio': aspect_ratio})
 
     def importFolder(self):
         '''还没写完, 还可以再改一改图像的显示'''
@@ -69,12 +69,12 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
                     image = self.tools.dcmToPng(dcm, self.nowpath + './temp/' + os.path.basename(filePath))[0]
                     image_dcm.append(image)
                 aspect_ratio = self.tools.getAspectRatio(image_dcm[0])
-                self.listWidget_1.createItem(image_dcm, aspect_ratio, self.MySignals)
+                self.listWidget.createItem({'images': image_dcm, 'aspectRatio': aspect_ratio})
             if niis:
                 for nii in niis:
                     images = self.tools.niigzToPng(nii, self.nowpath + '/temp')
                     aspect_ratio = self.tools.getAspectRatio(images[0])
-                    self.listWidget_1.createItem(images, aspect_ratio, self.MySignals)
+                    self.listWidget.createItem({'images': images, 'aspectRatio': aspect_ratio})
 
     def mousePressEvent_line(self, event):
         if event.button() == Qt.LeftButton:
@@ -83,29 +83,31 @@ class MainUI(QMainWindow, Ui_MainWindow, UIC):
     def mouseMoveEvent_line(self, event):
         if self.line_splitter:
             move = event.pos().x() - self.line_move
+            if abs(move) < 2:
+                return
             self.line_move = event.pos().x()
-            if move < 0:
-                if self.listWidget_1.width() > 50:
-                    self.listWidget_1.resize(QSize(self.listWidget_1.width() + move, self.listWidget_1.height()))
-                    self.line.move(self.line.pos().x() + move, self.line.pos().y())
-                    self.widget.resize(QSize(self.widget.width() - move, self.widget.height()))
-                    self.widget.move(self.widget.pos().x() + move, self.widget.pos().y())
-            else:
-                if self.widget.width() > 50:
-                    self.listWidget_1.resize(QSize(self.listWidget_1.width() + move, self.listWidget_1.height()))
-                    self.line.move(self.line.pos().x() + move, self.line.pos().y())
-                    self.widget.resize(QSize(self.widget.width() - move, self.widget.height()))
-                    self.widget.move(self.widget.pos().x() + move, self.widget.pos().y())
-
+            self.Pool.submit(self.resizeWidget, move)
 
     def mouseReleaseEvent_line(self, event):
         if event.button() == Qt.LeftButton:
+            self.listWidget.repaint()
+            self.line.repaint()
+            self.widget.repaint()
             self.line_splitter = False
             self.line_move = 0
 
-    def resizeEvent_listwidget(self, event):
-        if self.listWidget_1.count() > 0:
-            for index in range(self.listWidget_1.count()):
-                item = self.listWidget_1.item(index)
-                if item is not None:
-                    item.setSizeHint(QSize(int(self.listWidget_1.width()*0.95), int(item.aspect_ratio*self.listWidget_1.width())))
+    def resizeWidget(self, move):
+        if move < 0:
+            if self.listWidget.width() > 50:
+                width = self.listWidget.width()
+                self.listWidget.resize(QSize(width + move, self.listWidget.height()))
+                self.line.move(width + move + 15, self.line.pos().y())
+                self.widget.resize(QSize(self.widget.width() - move, self.widget.height()))
+                self.widget.move(width + move + 24, self.widget.pos().y())
+        else:
+            if self.widget.width() > 50:
+                width = self.listWidget.width()
+                self.listWidget.resize(QSize(width + move, self.listWidget.height()))
+                self.line.move(width + move + 15, self.line.pos().y())
+                self.widget.resize(QSize(self.widget.width() - move, self.widget.height()))
+                self.widget.move(width + move + 24, self.widget.pos().y())
